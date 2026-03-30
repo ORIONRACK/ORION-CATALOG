@@ -11,6 +11,10 @@
             box-sizing: border-box;
             font-family: "Microsoft YaHei", sans-serif;
         }
+        html {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
         body {
             background: #f5f7fa;
             padding: 30px 20px;
@@ -23,8 +27,6 @@
             margin-bottom: 20px;
             color: #222;
         }
-
-        /* 导航栏 */
         .nav {
             display: flex;
             gap: 10px;
@@ -42,6 +44,8 @@
             box-shadow: 0 2px 5px #00000010;
             text-align: center;
             transition: 0.2s;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .nav button.active {
             background: #409eff;
@@ -50,8 +54,6 @@
         .nav button:hover{
             opacity: 0.9;
         }
-
-        /* 页面内容 */
         .page {
             display: none;
             padding: 20px;
@@ -62,8 +64,6 @@
         .page.active {
             display: block;
         }
-
-        /* 目录按钮样式 */
         .item {
             display: block;
             padding: 18px 22px;
@@ -74,6 +74,9 @@
             color: #333;
             border-left: 4px solid #409eff;
             transition: 0.2s;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
         .item:hover {
             background: #eef5ff;
@@ -81,18 +84,14 @@
         }
     </style>
 </head>
-
 <body>
     <h2 class="title">📚 ORIONRACK 产品目录</h2>
-
-    <!-- 导航 -->
     <div class="nav">
-        <button onclick="openPage(0)" class="active">English-中文 catalog</button>
-        <button onclick="openPage(1)">Русский язык-English catalog</button>
-        <button onclick="openPage(2)">Vedio</button>
+        <button class="active">English-中文 catalog</button>
+        <button>Русский язык-English catalog</button>
+        <button>Vedio</button>
     </div>
 
-    <!-- 页面1 -->
     <div class="page active">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/uwqd/" target="_blank">📖 Racking system 仓储货架</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/vjbd/" target="_blank">📖 Storage equipment 仓储设备</a>
@@ -100,7 +99,6 @@
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/limj/" target="_blank">📖 Radio-shuttle Rack 穿梭式货架</a>
     </div>
 
-    <!-- 页面2 -->
     <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/aylk/" target="_blank">📖 Складские стеллажи Racking System</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/avbj/" target="_blank">📖 Складское оборудование Storage Equipment</a>
@@ -108,26 +106,57 @@
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/oipy/" target="_blank">📖 Шаттловые стеллажи Radio shuttle Rack</a>
     </div>
 
-    <!-- 页面3 -->
     <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/fafe/" target="_blank">📖 打开产品手册</a>
     </div>
 
-    <!-- 切换逻辑 -->
     <script>
         let pages = document.querySelectorAll('.page');
         let btns = document.querySelectorAll('.nav button');
+        let items = document.querySelectorAll('.item');
+
+        function bindTap(el, callback) {
+            let isTouch = false;
+            el.addEventListener('touchstart', () => { isTouch = true; });
+            el.addEventListener('touchend', (e) => {
+                isTouch = false;
+                e.preventDefault();
+                callback();
+            });
+            el.addEventListener('click', (e) => {
+                if (!isTouch) {
+                    e.preventDefault();
+                    callback();
+                }
+            });
+        }
 
         function openPage(index) {
-            // 切换页面显示
             pages.forEach((p, i) => {
                 p.classList.toggle('active', i === index);
             });
-            // 切换按钮高亮
             btns.forEach((btn, i) => {
                 btn.classList.toggle('active', i === index);
             });
+            setTimeout(() => {
+                pages.forEach((p, i) => {
+                    if (i !== index) p.style.display = 'none';
+                });
+            }, 320);
         }
+
+        btns.forEach((btn, i) => {
+            bindTap(btn, () => openPage(i));
+        });
+
+        items.forEach(item => {
+            bindTap(item, () => {
+                const href = item.getAttribute('href');
+                if (href) window.open(href, '_blank');
+            });
+        });
+
+        openPage(0);
     </script>
 </body>
 </html>
