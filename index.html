@@ -40,10 +40,15 @@
             font-size: 15px;
             cursor: pointer;
             box-shadow: 0 2px 5px #00000010;
+            text-align: center;
+            transition: 0.2s;
         }
         .nav button.active {
             background: #409eff;
             color: white;
+        }
+        .nav button:hover{
+            opacity: 0.9;
         }
 
         /* 页面内容 */
@@ -68,6 +73,11 @@
             text-decoration: none;
             color: #333;
             border-left: 4px solid #409eff;
+            transition: 0.2s;
+        }
+        .item:hover {
+            background: #eef5ff;
+            transform: translateX(4px);
         }
     </style>
 </head>
@@ -80,31 +90,28 @@
         <button onclick="openPage(0)" class="active">English-中文 catalog</button>
         <button onclick="openPage(1)">Русский язык-English catalog</button>
         <button onclick="openPage(2)">Vedio</button>
-          </div>
+    </div>
 
     <!-- 页面1 -->
     <div class="page active">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/uwqd/" target="_blank">📖 Racking system 仓储货架</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/vjbd/" target="_blank">📖 Storage equipment 仓储设备</a>
-        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/fafe/" target="_blank">📖  Product introduction 产品简介</a>
-        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/limj/" target="_blank">📖  Radio-shuttle Rack 穿梭式货架</a>
+        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/fafe/" target="_blank">📖 Product introduction 产品简介</a>
+        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/limj/" target="_blank">📖 Radio-shuttle Rack 穿梭式货架</a>
     </div>
 
     <!-- 页面2 -->
-     <div class="page active">
+    <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/aylk/" target="_blank">📖 Складские стеллажи Racking System</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/avbj/" target="_blank">📖 Складское оборудование Storage Equipment</a>
-        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/zsxj/" target="_blank">📖  Обзор продукта Product introduction</a>
-        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/oipy/" target="_blank">📖  Шаттловые стеллажи Radio shuttle Rack</a>
+        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/zsxj/" target="_blank">📖 Обзор продукта Product introduction</a>
+        <a class="item" href="https://online.fliphtml5.com/ORIONRACK/oipy/" target="_blank">📖 Шаттловые стеллажи Radio shuttle Rack</a>
     </div>
-
 
     <!-- 页面3 -->
     <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/fafe/" target="_blank">📖 打开产品手册</a>
     </div>
-
-
 
     <!-- 切换逻辑 -->
     <script>
@@ -112,9 +119,13 @@
         let btns = document.querySelectorAll('.nav button');
 
         function openPage(index) {
+            // 切换页面显示
             pages.forEach((p, i) => {
                 p.classList.toggle('active', i === index);
-                btns[i].classList.toggle('active', i === index);
+            });
+            // 切换按钮高亮
+            btns.forEach((btn, i) => {
+                btn.classList.toggle('active', i === index);
             });
         }
     </script>
