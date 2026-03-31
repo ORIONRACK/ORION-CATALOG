@@ -10,16 +10,17 @@
             padding: 0;
             box-sizing: border-box;
             font-family: "Microsoft YaHei", sans-serif;
+            -webkit-tap-highlight-color: transparent !important;
         }
         html {
             touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
         }
         body {
             background: #f5f7fa;
             padding: 30px 20px;
             max-width: 800px;
             margin: 0 auto;
+            -webkit-touch-callout: none;
         }
         .title {
             text-align: center;
@@ -40,10 +41,11 @@
             border-radius: 10px;
             background: white;
             font-size: 15px;
+            touch-action: manipulation;
             cursor: pointer;
             box-shadow: 0 2px 5px #00000010;
             text-align: center;
-            transition: 0.2s;
+            transition: all 0.1s ease;
             user-select: none;
             -webkit-user-select: none;
             min-width: 120px;
@@ -52,8 +54,9 @@
             background: #409eff;
             color: white;
         }
-        .nav button:hover{
-            opacity: 0.9;
+        .nav button:active {
+            opacity: 0.8;
+            transform: scale(0.98);
         }
         .page {
             display: none;
@@ -74,12 +77,13 @@
             text-decoration: none;
             color: #333;
             border-left: 4px solid #409eff;
-            transition: 0.2s;
+            transition: all 0.1s ease;
             cursor: pointer;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: manipulation;
         }
-        .item:hover {
+        .item:active {
             background: #eef5ff;
             transform: translateX(4px);
         }
@@ -92,7 +96,6 @@
         <button>Русский язык-English catalog</button>
     </div>
 
-    <!-- 第1页：中英目录 -->
     <div class="page active">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/dwbk/" target="_blank">📖 Racking system 仓储货架</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/bifz/" target="_blank">📖 Storage equipment 仓储设备</a>
@@ -100,7 +103,6 @@
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/limj/" target="_blank">📖 Radio-shuttle Rack 穿梭式货架</a>
     </div>
 
-    <!-- 第2页：俄英目录 -->
     <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/srlr/" target="_blank">📖 Складские стеллажи Racking System</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/eyis/" target="_blank">📖 Складское оборудование Storage Equipment</a>
@@ -113,16 +115,15 @@
         let btns = document.querySelectorAll('.nav button');
 
         function openPage(index) {
-            pages.forEach((p, i) => {
-                p.classList.toggle('active', i === index);
-            });
-            btns.forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
+            pages.forEach((p, i) => p.classList.toggle('active', i === index));
+            btns.forEach((btn, i) => btn.classList.toggle('active', i === index));
         }
 
         btns.forEach((btn, i) => {
-            btn.addEventListener('click', () => openPage(i));
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                openPage(i);
+            }, { passive: false });
         });
     </script>
 </body>
