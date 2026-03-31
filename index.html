@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>ORIONRACK CATALOGUE</title>
     <style>
         * {
@@ -46,6 +46,7 @@
             transition: 0.2s;
             user-select: none;
             -webkit-user-select: none;
+            min-width: 120px;
         }
         .nav button.active {
             background: #409eff;
@@ -89,9 +90,9 @@
     <div class="nav">
         <button class="active">English-中文 catalog</button>
         <button>Русский язык-English catalog</button>
-        <button>Vedio</button>
     </div>
 
+    <!-- 第1页：中英目录 -->
     <div class="page active">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/dwbk/" target="_blank">📖 Racking system 仓储货架</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/bifz/" target="_blank">📖 Storage equipment 仓储设备</a>
@@ -99,6 +100,7 @@
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/limj/" target="_blank">📖 Radio-shuttle Rack 穿梭式货架</a>
     </div>
 
+    <!-- 第2页：俄英目录 -->
     <div class="page">
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/srlr/" target="_blank">📖 Складские стеллажи Racking System</a>
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/eyis/" target="_blank">📖 Складское оборудование Storage Equipment</a>
@@ -106,14 +108,10 @@
         <a class="item" href="https://online.fliphtml5.com/ORIONRACK/oipy/" target="_blank">📖 Шаттловые стеллажи Radio shuttle Rack</a>
     </div>
 
-    <div class="page">
-    </div>
-
     <script>
         let pages = document.querySelectorAll('.page');
         let btns = document.querySelectorAll('.nav button');
 
-        // 切换页面函数
         function openPage(index) {
             pages.forEach((p, i) => {
                 p.classList.toggle('active', i === index);
@@ -123,12 +121,9 @@
             });
         }
 
-        // 按钮绑定点击
         btns.forEach((btn, i) => {
             btn.addEventListener('click', () => openPage(i));
         });
-
-        openPage(0);
     </script>
 </body>
 </html>
